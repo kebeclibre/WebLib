@@ -7,6 +7,7 @@ package weblib.central.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import weblib.central.beans.Haricot;
 
 /**
  *
@@ -15,7 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 public class AddAuthorAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String execute(HttpServletRequest request, HttpServletResponse response, Haricot ha) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

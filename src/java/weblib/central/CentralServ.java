@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import weblib.central.beans.UserAuth;
+import weblib.central.dispatchers.CentralDispatcher;
+import weblib.central.dispatchers.LoggerDispatcher;
 
 /**
  *
@@ -29,13 +32,19 @@ public class CentralServ extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserAuth ua = request.getSession().getAttribute("UserAuth");
+        
+        UserAuth ua = (UserAuth) request.getSession().getAttribute("UserAuth");
+        
         if ( null == ua) {
             ua = new UserAuth();
             request.getSession().setAttribute("UserAuth",ua);
         }
         
-        CentralDispatcher.getInstance().delegate(request, response);
+        if (ua.getAuthStatus() == 0) {
+            CentralDispatcher.getInstance().delegate(request, response);
+        } else {
+            LoggerDispatcher.getInstance().delegate(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

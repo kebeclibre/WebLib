@@ -9,7 +9,7 @@ package weblib.central.beans;
  *
  * @author Rome10
  */
-public class UserAuth {
+public class UserAuth implements Haricot {
     private String username;
     private int authStatus=-2;
     private int logCount;

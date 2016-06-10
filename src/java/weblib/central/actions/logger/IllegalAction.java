@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package weblib.central.actions;
+package weblib.central.actions.logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import weblib.central.actions.Action;
+import weblib.central.dispatchers.Paths;
 
 /**
  *
  * @author rome10
  */
-public class AuthorFormAction implements Action {
+public class IllegalAction implements Action{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Paths.JSP+"IllegalUrl.jsp";
     }
     
 }

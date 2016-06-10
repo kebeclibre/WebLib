@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package weblib.central;
+package weblib.central.dispatchers;
 
+import java.io.IOException;
 import weblib.central.actions.Action;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import weblib.central.actions.AddAuthorAction;
@@ -34,21 +38,29 @@ public class CentralDispatcher {
     }
     
     private void populate() {
-        urlsAction.put("AddAuthor",new AddAuthorAction());
-        urlsAction.put("AuthorForm",new AuthorFormAction());
+        urlsAction.put(Paths.LOGGED+"",new AddAuthorAction());
+        urlsAction.put(Paths.LOGGED+"",new AuthorFormAction());
         
     }
     
     public void delegate(HttpServletRequest request, HttpServletResponse response) {
-        StringBuffer url = request.getRequestURL();
-        String[] urlParts = url.toString().split("/");
+        String url = request.getRequestURI();
+        Action a = urlsAction.get(url);
+        String forward = null;
         
-        Action a = urlsAction.get(urlParts[urlParts.length-1]);
         if (null != a) {
-            a.execute(request,response);
+            forward = a.execute(request, response);
         } else {
-            request.getRequestDispatcher("index.jsp");
+            forward = Paths.ROOT+"";
         }
-    }
+        
+        try {
+            request.getRequestDispatcher(forward).forward(request, response);
+        } catch (ServletException ex) {
+            Logger.getLogger(LoggerDispatcher.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LoggerDispatcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
+    }
 }

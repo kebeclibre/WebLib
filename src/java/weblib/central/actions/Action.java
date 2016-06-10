@@ -7,11 +7,14 @@ package weblib.central.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import weblib.central.beans.Haricot;
 
 /**
  *
  * @author rome10
  */
 public interface Action {
-    public void execute(HttpServletRequest request, HttpServletResponse response);
+    
+   
+    public String execute(HttpServletRequest request, HttpServletResponse response);
 }
