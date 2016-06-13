@@ -5,9 +5,14 @@
  */
 package weblib.central.actions;
 
+import be.bt.model.Book;
+import be.bt.model.Library;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import weblib.central.beans.Haricot;
+import weblib.central.beans.ShopCart;
+import weblib.central.dispatchers.Paths;
 
 /**
  *
@@ -15,11 +20,26 @@ import weblib.central.beans.Haricot;
  */
 public class AllBooksAction implements Action{
 
-    public String execute(HttpServletRequest request, HttpServletResponse response, Haricot ha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Library l = (Library) request.getServletContext().getAttribute("Library");
+        ShopCart sc = (ShopCart) request.getSession().getAttribute("ShopCart");
+        
+        
+        if ( null == l) {
+            l = new Library();
+            request.getServletContext().setAttribute("Library",l);
+        }
+        
+        if (null == sc) {
+            sc = new ShopCart();
+            request.getSession().setAttribute("ShopCart",sc);
+        }
+        
+        List<Book> listBooks = l.getAllBooks();
+        request.setAttribute("ListBooks", listBooks);
+        
+        return Paths.JSP+"display/allBooks.jsp";
     }
+
 }

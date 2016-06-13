@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import weblib.central.actions.AddAuthorAction;
+import weblib.central.actions.AddToCartAction;
+import weblib.central.actions.AllBooksAction;
 import weblib.central.actions.AuthorFormAction;
 
 /**
@@ -38,8 +40,10 @@ public class CentralDispatcher {
     }
     
     private void populate() {
-        urlsAction.put(Paths.LOGGED+"",new AddAuthorAction());
-        urlsAction.put(Paths.LOGGED+"",new AuthorFormAction());
+        urlsAction.put(Paths.LOGGED+"",new AllBooksAction());
+        urlsAction.put(Paths.LOGGED+"AddToCart",new AddToCartAction());
+        
+        
         
     }
     
@@ -51,7 +55,7 @@ public class CentralDispatcher {
         if (null != a) {
             forward = a.execute(request, response);
         } else {
-            forward = Paths.ROOT+"";
+            forward = "/main/";
         }
         
         try {

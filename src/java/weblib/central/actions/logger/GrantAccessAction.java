@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package weblib.central.actions;
+package weblib.central.actions.logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import weblib.central.actions.Action;
 import weblib.central.beans.Haricot;
 import weblib.central.beans.UserAuth;
 import weblib.central.dispatchers.Paths;

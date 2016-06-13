@@ -17,7 +17,7 @@ import org.apache.jasper.tagplugins.jstl.core.Out;
 import weblib.central.actions.Action;
 import weblib.central.actions.AddAuthorAction;
 import weblib.central.actions.AuthorFormAction;
-import weblib.central.actions.GrantAccessAction;
+import weblib.central.actions.logger.GrantAccessAction;
 import weblib.central.actions.logger.IllegalAction;
 import weblib.central.actions.logger.LoggerIndexAction;
 import weblib.central.dispatchers.Paths;
@@ -59,10 +59,7 @@ public class LoggerDispatcher {
     public void delegate(HttpServletRequest request, HttpServletResponse response) {
         String url = request.getRequestURI();
         Action a = urlsAction.get(url);
-        System.out.println(urlsAction.toString());
         String forward = "";
-        System.out.println(url);
-        System.out.println(a);
         if (null != a) {
             forward = a.execute(request, response);
         } else {
